@@ -76,19 +76,29 @@ RSpec.describe PurchaseAddress, type: :model do
       it '電話番号は英数字混合では購入できないこと' do
         @purchase_address.phone_number = '080defgefe'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include('Phone number is invalid')
+        expect(@purchase_address.errors.full_messages).to include("Phone number is invalid")
       end
 
       it '電話番号は11桁を超えると購入できないこと' do
         @purchase_address.phone_number = '080333333333332'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include('Phone number is invalid')
+        expect(@purchase_address.errors.full_messages).to include("Phone number is invalid")
       end
 
       it '電話番号11桁の半角数字でないと購入できないこと' do
         @purchase_address.phone_number = '０８０９９９９'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include('Phone number is invalid')
+        expect(@purchase_address.errors.full_messages).to include("Phone number is invalid")
+      end
+      it 'user_idが空ではできないこと' do
+        @purchase_address.user_id = ''
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空では登録できないこと' do
+        @purchase_address.item_id = ''
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
