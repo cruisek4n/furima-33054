@@ -5,7 +5,7 @@ FactoryBot.define do
     city { '東京都練馬区' }
     street_address { '新江古田1-7-8' }
     building_name { '花束ビル210' }
-    phone_number { '08059872239' }
+    phone_number { '08059879999' }
     token { 'tok_abcdefghijk00000000000000000' }
   end
 end

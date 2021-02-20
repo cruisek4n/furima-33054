@@ -1,7 +1,7 @@
 class PurchasesController < ApplicationController
-  before_action :set_item, only: [:index, :create]
-  before_action :authenticate_user!, only: [:index]
-  before_action :move_to_index, only: [:index]
+  before_action :authenticate_user!, only: [:index, :create]
+  before_action :set_purchases, only: [:index, :create]
+  before_action :set_purchases2, only: [:index, :create]
 
   def index
     @purchase_address = PurchaseAddress.new
@@ -25,7 +25,7 @@ class PurchasesController < ApplicationController
                                              :building_name, :phone_number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
   end
 
-  def set_item
+  def set_purchases
     @item = Item.find(params[:item_id])
   end
 
@@ -38,7 +38,7 @@ class PurchasesController < ApplicationController
     )
   end
 
-  def move_to_index
-    redirect_to root_path if current_user.id == @item.user_id || @item.purchase.present?
+  def set_purchases2
+    redirect_to root_path if current_user.id == @item.user.id || @item.purchase.present?
   end
 end
